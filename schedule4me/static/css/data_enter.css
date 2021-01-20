@@ -1,0 +1,182 @@
+/*
+    data_enter.css: Data entering page style sheet
+
+    The Data Minors:
+    - Andrew Whitman
+    - Dean Orenstein
+    - Gage Aykroyd
+*/
+
+body {
+    background: white;
+    font-family: 'Lato', sans-serif;
+    overflow-x: hidden;
+    margin: auto;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -30px;
+    margin-left: -60px;
+    display: inline-block;
+    font-size: 26px;
+    color: #28A745;
+    text-align: center;
+    width: 120px;
+    height: 60px;
+    line-height: 60px;
+    border: 5px solid #28A745;
+    overflow: hidden;
+    /* text-transform: uppercase; */
+    cursor: pointer;
+    transition: width 1s*.5 ease-in-out,
+                margin 1s*.5 ease-in-out,
+                border-radius 1s*.25 ease-in-out,
+                color 1s*.25 ease-in-out;
+}
+
+/* .arrow:hover
+input[type=submit]:hover {
+    width: 60px;
+    font-size: 0;
+    margin-left: -30px;
+    border-radius: 40px;
+    color: rgba(#28A745, 0);
+    transition: width .5s ease-in-out,
+                margin .5s ease-in-out,
+                border-radius .25s ease-in-out,
+                color .25s ease-in-out .25s, font-size .25s ease-in-out;
+}
+/* .arrow:hover::before */
+/* input[type=submit]:hover::before {
+    animation: lineRight 1s cubic-bezier(0.0, 0.6, 1.0, 0.4) infinite .5s;
+} */
+/* .arrow:hover::after */
+/* input[type=submit]:hover::after {
+    animation: tipRight 1s cubic-bezier(0.0, 0.6, 1.0, 0.4) infinite .5s;
+} */
+
+/* .arrow:before */
+/* input[type=submit]:before {
+    position: absolute;
+    display: inline-block;
+    content: "";
+    background: #28A745;
+    width: 5px;
+    height: 40px;
+    top: 50%;
+    left: 50%;
+    margin-top: -8px;
+    margin-left: -3px;
+    transform: translateX(-85px) translateY(-8px) rotateZ(90deg);
+}
+
+/* .arrow:after */
+/* input[type=submit]:after {
+    position: absolute;
+    display: inline-block;
+    content: "";
+    width: 20px;
+    height: 20px;
+    color: #28A745;
+    border-top: 5px solid;
+    border-left: 5px solid;
+    top: 50%;
+    left: 50%;
+    margin-top: -6px;
+    margin-left: -13px;
+    transform: translateX(-70px) rotateZ(135deg);
+}
+
+@keyframes tipRight {
+    0% {
+        transform: translateX(-30px) rotateZ(135deg);
+    }
+    100% {
+        transform: translateX(80px) rotateZ(135deg);
+    }
+}
+
+@keyframes lineRight {
+    0% {
+        transform: translateX(-45px) translateY(-8px) rotateZ(90deg);
+    }
+    100% {
+        transform: translateX(65px) translateY(-8px) rotateZ(90deg);
+    }
+} */
+
+#top-content {
+    margin-top: 5%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+h2 {
+    display: inline;
+}
+
+.row {
+    text-align: center;
+}
+
+#create-button {
+    margin-left: 10%;
+}
+
+.task-field {
+    border: 2px solid #444444;
+    background-color: lightgray;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.cancel {
+    margin-left: 2%;
+    margin-bottom: 2%;
+}
+
+#tasks-list {
+    text-align: center;
+}
+
+.modal-body .row{
+    margin: 1% 0;
+    border-bottom: 2px solid black;
+}
+
+.modal-body .col-sm-12{
+    margin: 1% 0;
+}
+
+#enter-your-todo-list {
+    margin-top: 2%;
+}
+
+.name, .priority, .duration, .passive, .date, .deadline {
+    cursor: pointer;
+}
+
+#to-do-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.task-list-header {
+    border: 2px solid black;
+    border-radius: 3px;
+    color: white;
+    background-color: #444444;
+}
+
+#btn-add-task{
+    margin: 2.5%;
+}
+
+h4{
+    font-weight: bold;
+}

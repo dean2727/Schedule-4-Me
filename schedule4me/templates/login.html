@@ -1,0 +1,64 @@
+<!--
+    Login page: what the user first sees when arriving at the 
+    website. Can connect Googe account or proceed without connecting
+
+    The Data Minors:
+    - Andrew Whitman
+    - Dean Orenstein
+    - Mary Ashley Vance
+    - Gage Aykroyd
+-->
+
+{% load static %}
+{% load socialaccount %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schedule-4-Me | Login</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap_css/bootstrap.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+</head>
+
+<body style="background: url({% static 'images/login_bg.png' %}) no-repeat center center fixed; background-size: cover;">
+    {% block pagecontent %}
+    <div id="title" class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>Welcome to Schedule-4-Me!</h1>
+            </div>
+            <div class="col-sm-12">
+                <h2>A fast and easy way to turn your to-do list into a schedule</h1>
+            </div>
+            <div class="col-sm-12">
+                <h3>To allow Schedule-4-Me to do all the things it can do, we need you to link your google account! If you don't link
+                    your account, don't worry! You will still be able to create a schedule, but you wont be able to use some of the cooler features.</h3>
+            </div>
+
+        </div>
+    </div>
+    <div id="options" class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 text-md-right">
+                <a id="signin" class="btn btn-primary btn-lg" onclick="signIn()" href="{% provider_login_url 'google' process='login' next='/data-enter' %}" role="button">Sign in with Google</a>
+            </div>
+            <div class="col-sm-12 col-md-6 text-md-left">
+                <a id="skip" class="btn btn-primary btn-lg" onclick="skipSignIn()" role="button">Skip signing in</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap_js/bootstrap.min.js' %}"></script>
+
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+
+    <script src="{% static 'js/OptimizeSchedule.js' %}"></script>
+    {% endblock %}
+</body>
+</html>

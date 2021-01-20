@@ -1,0 +1,25 @@
+#title .col-sm-12 {
+    text-align: center;
+    margin: 2% 0;
+    padding: 0 15%;
+}
+h1 {
+    font-size: 5vw;
+}
+h2 {
+    font-size: 2vw;
+}
+h3 {
+    font-size: 1.2vw;
+}
+#options .col-sm-12, #options .col-md-6{
+    text-align: center;
+}
+#options{
+    margin: 5% 0%;
+}
+
+#title {
+    background: rgba(0,0,0,0.5);
+    color: white;
+}

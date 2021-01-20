@@ -1,0 +1,51 @@
+<!--
+    Success page: Here is where the user will see the output of their schedule and get the options to save the schedule.
+
+    The Data Minors:
+    - Andrew Whitman
+    - Dean Orenstein
+    - Mary Ashley Vance
+    - Gage Aykroyd
+-->
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schedule-4-Me | Output</title>
+    <meta charset="utf-8">
+    
+    <link rel="stylesheet" href="{% static 'css/bootstrap_css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap_css/bootstrap-grid.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/success.css'%}">
+</head>
+<body onload="sessionStorage.clear()" >
+    {% block pagecontent %}
+    <div id="content" class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>Success!</h1>
+            </div>
+            <div class="col-sm-12">
+                <h5>Your schedule was successfully exported!</h5>
+            </div>
+            <div class="col-sm-12">
+                <img src="../static/images/success.gif" alt="Success Screen">
+            </div>
+            <div class="col-sm-12 col-md-6 text-md-right">
+                <a type="button" class="btn btn-success btn-custom-size align-middle" role="button" href="{% url 'landing' %}">Go to Home Page</a>
+            </div>
+            <div class="col-sm-12 col-md-6 text-md-left">
+                <a type="button" class="btn btn-success btn-custom-size" role="button" href="{% url 'data-enter' %}">Make Another Schedule</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap_js/bootstrap.min.js' %}"></script>
+
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    {% endblock %}
+</body>
+</html>

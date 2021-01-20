@@ -1,0 +1,169 @@
+<!--
+    Import page: displays a data entering page with pre-filled tasks from the user's to-do list
+    on Google Sheets
+
+    The Data Minors:
+    - Andrew Whitman
+    - Dean Orenstein
+    - Gage Aykroyd
+    - Mary Ashley Vance
+-->
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schedule-4-Me | Make schedule</title>
+    <meta charset="utf-8">
+    
+    <link rel="stylesheet" href="{% static 'css/bootstrap_css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap_css/bootstrap-grid.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/data_enter.css'%}">
+</head>
+
+<body onload="populate({{input}})" style="background: url({% static 'images/notebook_paper.jpg' %}) no-repeat center center fixed; background-size: cover;">
+    {% block pagecontent %}
+
+    <form   ref='scheduleInfo' 
+            id='scheduleInfo' 
+            action='/output' 
+            method='post' 
+            encType="multipart/form-data">
+        {% csrf_token %}
+        <div id="top-content" class="container-fluid"  style="margin-bottom: 5%; margin-top: 5%;">
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="schedule-name">
+                        <h2>Schedule name: </h2>
+                        <input name="schedule-name" class="form-control-lg" type="text" placeholder="My Schedule">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#instructions-modal">
+                        Instructions
+                    </button>
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#time-blocks-modal">
+                        Time Blocks
+                    </button>
+                </div>
+                <div class="col-md-3 text-md-left">
+                    <div id="create-button"  >
+                        <!-- Source: https://codepen.io/WithAnEs/pen/Ghjsb --> 
+                        <input type="submit" value="Create" class="arrow" role="button"></input>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div id="to-do-list">
+            <h4 id="enter-your-todo-list">Enter your to-do list:</h4>
+            <div id="titles" class="container">
+                <div class="row">
+                    <div class="task-list-header" style="width: 11.5%"></div>
+                    <div class="task-list-header" style="width: 17.4%">Task name</div>
+                    <div class="task-list-header" style="width: 11.5%">Priority</div>
+                    <div class="task-list-header" style="width: 17.6%">Duration in minutes</div>
+                    <div class="task-list-header" style="width: 11.5%">Passive</div>
+                    <div class="task-list-header" style="width: 16%">Deadline day</div>
+                    <div class="task-list-header" style="width: 14.5%">Deadline time</div>
+                </div>
+            </div>
+            
+            <div id="tasks-list" class="container">
+            </div>
+            <a id="btn-add-task" class="btn btn-success btn-lg" role="button">+ New task</a>
+            <a id="btn-home" class="btn btn-danger btn-lg" role="button" href="{% url 'landing' %}">Home</a>
+        </div>
+    </form>
+    
+
+    <div class="modal fade" id="instructions-modal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Instructions</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    On this page, simply enter the information for the tasks you have planned for the week (starting on next Monday). You can add or remove tasks by clicking the buttons with the + and x symbols.
+                    When you are finished, click "Create" and we will show you an optimized schedule that contains your tasks. You will also have the ability to move tasks around if you do not like when something 
+                    is on the schedule we make for you.
+                    <br>
+                    <h4>Help:</h4>
+                    <ul>
+                        <li><b>Time blocks</b>: Time blocks are items that will repeat on your schedule. For instance, sleep is typically considered a time block.</li>
+                        <li><b>Passive</b>: A passive task is a task that can run in the background while you fulfill another task. An example could be doing the laundry. You can do work on another task while your clothes are being washed.</li>
+                        <li><b>Importing a to-do list</b>: If you have connected your Google Drive account, you can import any custom-made to-do lists. The list must be in Google Sheets and have "todo" in the name in order for it to be imported.
+                            After importing, you can fill out the rest of the criteria for the imported tasks (or remove them) and keep adding new tasks, if you wish.</li>
+                        <li><b>Priority</b>: When selecting a priority, 1 is the most important, and 5 is the least important.</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal time blocks-->
+    <div class="modal fade" id="time-blocks-modal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Enter time blocks</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-bodyTB">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-3 text-md-right">
+                            <h5>Sleep time</h5>
+                        </div>
+                        <div class="col-sm-12 col-md-9 text-md-left">
+                            <input id="sleepStart" class="form-control-sm" type="time"  value="22:00"> - 
+                            <input id="sleepEnd" class="form-control-sm" type="time"  value="06:00">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-3 text-md-right">
+                            <h5>Lunch time</h5>
+                        </div>
+                        <div class="col-sm-12 col-md-9 text-md-left">
+                            <input id="lunchStart" class="form-control-sm" type="time"  value="12:00"> - 
+                            <input id="lunchEnd" class="form-control-sm" type="time"  value="13:00">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12 col-md-3 text-md-right">
+                            <h5>Free time</h5>
+                        </div>
+                        <div class="col-sm-12 col-md-9 text-md-left">
+                            <input id="freeStart" class="form-control-sm" type="time"  value="20:00"> - 
+                            <input id="freeEnd" class="form-control-sm" type="time"  value="22:00">
+                        </div>
+                      </div>
+                </div>
+                <div class="modal-footer">
+                    <a id="add" class="btn btn-success"  role="button">+ New time block</a>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap_js/bootstrap.min.js' %}"></script>
+
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+
+    <script src="{% static 'js/OptimizeSchedule.js' %}"></script>
+    <script src="{% static 'js/AddTask.js' %}"></script>
+    {% endblock %}
+</body>
+</html>

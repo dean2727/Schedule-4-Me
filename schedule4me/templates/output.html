@@ -1,0 +1,82 @@
+<!--
+    Output page: Here is where the user will see the output of their schedule and get the options to save the schedule.
+
+    The Data Minors:
+    - Andrew Whitman
+    - Dean Orenstein
+    - Gage Aykroyd
+-->
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schedule-4-Me | Output</title>
+    <meta charset="utf-8">
+    
+    <link rel="stylesheet" href="{% static 'css/bootstrap_css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap_css/bootstrap-grid.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/output.css'%}">
+</head>
+<body onload="printOutput()">
+    {% block pagecontent %}
+    <div id="main-content" class="container-fluid">
+        <div class="row" style="justify-content: center; margin-bottom: 2.5%;"><h2 style="text-align: center">View your new schedule: {{scheduleName}}!</h2></div>
+        <div id="titles" class="row" style="border-bottom: 2px black solid;">
+            <div class="offset-md-2 col-md-1">Monday</div>
+            <div class="col-md-1">Tuesday</div>
+            <div class="col-md-1">Wednesday</div>
+            <div class="col-md-1">Thursday</div>
+            <div class="col-md-1">Friday</div>
+            <div class="col-md-1">Saturday</div>
+            <div class="col-md-1">Sunday</div>
+        </div>
+        <div id="tasks">
+
+        </div>
+
+        <div id="buttons">
+            <form ref='selectOutput' id='selectOutput' action='/success' method='post' encType="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="schedule-name" value={{scheduleName}}>
+                <!-- This div stores all the optimized tasks (all formatted into a single string) that will be sent to backend for database insertion -->
+                <div id="hidden-tasks">
+                    <input id="numTasks" name="numTasks" type="hidden">
+                    <input id="tasksString" name="tasksString" type="hidden">
+                </div>               
+                <div class="form-group row">
+                    <div class="col-sm-12 col-md-6" style="text-align: center;">
+                        Choose what to do with your schedule:
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            {% csrf_token %}
+                            <label class="btn btn-outline-primary">
+                                <input type="checkbox" name="GCalendar" autocomplete="off" onclick="validateLogin('GCalendar')">Save in Google Calendar
+                            </label>
+                            <label class="btn btn-outline-primary">
+                                <input type="checkbox" name="GDoc" autocomplete="off" onclick="validateLogin('GDoc')">Save to Google Docs
+                            </label>
+                            <label class="btn btn-outline-primary">
+                                <input type="checkbox" name="Txt" autocomplete="off">Save as a .txt file
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <input class="arrow" type="submit" onclick="submitForms()" value="Finish Schedule!"><!-- <a class="arrow forward" onclick="submitForms()">Finish Schedule!</a> -->
+                    </div>
+                </div>
+                <input type="hidden" name="schedule-string">
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap_js/bootstrap.min.js' %}"></script>
+
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+
+    <script src="{% static 'js/OptimizeSchedule.js' %}"></script>
+    {% endblock %}
+</body>
+</html>
